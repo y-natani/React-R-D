@@ -1,40 +1,31 @@
-import React, { useRef, useState, useMemo } from 'react'
-import { css } from '@emotion/react'
+import React, { useRef, useState } from 'react'
 import { hiraToKana } from '@/helpers/Common/String'
 
 const TransformInput = () => {
   const ref = useRef<HTMLInputElement>(null)
-
-  const [beforeConvText, setBeforeConvText] = useState('')
-
-  const afterConvText = useMemo(() => {
-    console.log('===afterConvText===')
-    return hiraToKana(beforeConvText)
-  }, [beforeConvText])
+  const [text, setText] = useState('')
 
   const clickHandler = () => {
-    console.log('===clickHandler===')
+    console.log(ref?.current?.value)
+  }
+  const blurHandler = (originalStr: string) => {
+    // TODO: trim characters except for Katakana
+    const convertedStr = originalStr
+
+    setText(convertedStr)
   }
 
   return (
     <div>
-      <div css={styles.space}>
-        Before convert
-        <input ref={ref} onBlur={e => setBeforeConvText(e.target.value)} />
-        <button onClick={clickHandler}>Check Queue</button>
-      </div>
-      <div css={styles.space}>
-        After convert
-        <input defaultValue={afterConvText}></input>
-      </div>
+      <input
+        ref={ref}
+        value={text}
+        onChange={e => setText(hiraToKana(e.target.value))}
+        onBlur={e => blurHandler(e.target.value)}
+      />
+      <button onClick={clickHandler}>get ref</button>
     </div>
   )
-}
-
-const styles = {
-  space: css`
-    margin: 10px 0;
-  `,
 }
 
 export default TransformInput
