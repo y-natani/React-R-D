@@ -11,3 +11,16 @@ export const hiraToKana = (str: string) => {
     return String.fromCharCode(chr)
   })
 }
+
+export const toQs = (obj: { [key: string]: any }, url = '') => {
+  let qs = []
+
+  if (Object.keys(obj).length) {
+    for (const [value, key] of Object.entries(obj)) {
+      qs.push(`${value}=${key}`)
+    }
+  }
+  return `${url}?${qs.join('?')}`
+}
+
+export const boolToStr = (bool: any) => (bool ? 'true' : 'false')
