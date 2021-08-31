@@ -12,8 +12,9 @@ const useSomeApi = (defaultParam = {} as Param) => {
   //  無限renderingを防ぐため、一度useStateで受け取る方が良い
   const [param, setParam] = useState(defaultParam)
   const endpoint = 'https://jsonplaceholder.typicode.com/posts/1'
-
-  const { data, error, isValidating } = useSWR([endpoint, param], fetcher)
+  // nullのときはRequestを投げない
+  const fetcherParam = param ? [endpoint, param] : null
+  const { data, error, isValidating } = useSWR(fetcherParam, fetcher)
 
   return {
     isValidating,

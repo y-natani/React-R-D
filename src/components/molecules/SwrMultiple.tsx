@@ -12,13 +12,12 @@ interface Props {
 // 連続実行時は最後の結果だけ返ってくる？？
 const useSomeApi = () => {
   //  無限renderingを防ぐため、一度useStateで受け取る方が良い
+  //  連続実行制御とかもできそう
   const [param, setParam] = useState<null | { [key: string]: any }>(null)
   const endpoint = 'https://jsonplaceholder.typicode.com/posts/1'
-
-  const { data, error, isValidating } = useSWR(
-    [param ? endpoint : null, param],
-    fetcher
-  )
+  // nullのときはRequestを投げない
+  const fetcherParam = param ? [endpoint, param] : null
+  const { data, error, isValidating } = useSWR(fetcherParam, fetcher)
 
   return {
     isValidating,
