@@ -12,11 +12,8 @@ const useSomeApi = (defaultParam = {} as Param) => {
   const [fire, setFire] = useState(false)
   const [param] = useState(defaultParam)
   const endpoint = 'https://jsonplaceholder.typicode.com/posts/1'
-
-  const { data, error, isValidating } = useSWR(
-    [fire ? endpoint : false, param],
-    fetcher
-  )
+  const fetcherParam = fire ? [endpoint, param] : null
+  const { data, error, isValidating } = useSWR(fetcherParam, fetcher)
 
   return {
     isValidating,
