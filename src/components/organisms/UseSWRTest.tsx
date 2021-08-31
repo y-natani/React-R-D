@@ -6,7 +6,7 @@ import SwrMultiple from '@/molecules/SwrMultiple'
 const UseSWRTest = () => {
   return (
     <div>
-      <SwrFirst>任意の1回のみ実行</SwrFirst>
+      <SwrFirst>初回1回のみ実行</SwrFirst>
       <hr />
       <SwrOnce>任意の1回のみ実行</SwrOnce>
       <hr />
