@@ -15,6 +15,7 @@ const useSomeApi = () => {
   //  連続実行制御とかもできそう
   const [param, setParam] = useState<null | { [key: string]: any }>(null)
   const endpoint = 'https://jsonplaceholder.typicode.com/posts/1'
+  // nullのときはRequestを投げない
   const fetcherParam = param ? [endpoint, param] : null
   const { data, error, isValidating } = useSWR(fetcherParam, fetcher)
 
