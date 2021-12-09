@@ -1,7 +1,7 @@
 import { fetcher, Param } from '@/helpers/Common/Api'
 import { boolToStr } from '@/helpers/Common/String'
 import { useCounter } from '@/helpers/Hooks/Counter'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 interface Props {
@@ -18,6 +18,10 @@ const useSomeApi = () => {
   // nullのときはRequestを投げない
   const fetcherParam = param ? [endpoint, param] : null
   const { data, error, isValidating } = useSWR(fetcherParam, fetcher)
+
+  useEffect(() => {
+    console.log(isValidating)
+  }, [isValidating])
 
   return {
     isValidating,
